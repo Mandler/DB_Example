@@ -1,0 +1,2 @@
+class PayU < Payment
+end
