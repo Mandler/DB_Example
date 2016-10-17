@@ -10,7 +10,83 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017214529) do
+ActiveRecord::Schema.define(version: 20161017224920) do
+
+  create_table "albums", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "artist_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_albums_on_artist_id"
+  end
+
+  create_table "artists", force: :cascade do |t|
+    t.string   "firstname"
+    t.string   "lastname"
+    t.integer  "musical_genre_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["musical_genre_id"], name: "index_artists_on_musical_genre_id"
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "musical_genres", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.integer  "profile_premium_id"
+    t.decimal  "price"
+    t.datetime "card_expires_at"
+    t.string   "card_number"
+    t.string   "card_code"
+    t.string   "email"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["profile_premium_id"], name: "index_payments_on_profile_premium_id"
+  end
+
+  create_table "playlists", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_playlists_on_user_id"
+  end
+
+  create_table "rates", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "rate_val"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_rates_on_user_id", unique: true
+  end
+
+  create_table "song_selectors", force: :cascade do |t|
+    t.integer  "playlist_id"
+    t.integer  "song_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["playlist_id"], name: "index_song_selectors_on_playlist_id"
+    t.index ["song_id"], name: "index_song_selectors_on_song_id"
+  end
+
+  create_table "songs", force: :cascade do |t|
+    t.string   "title"
+    t.string   "path"
+    t.integer  "bitrate"
+    t.integer  "album_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["album_id"], name: "index_songs_on_album_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
