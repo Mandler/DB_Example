@@ -1,0 +1,2 @@
+class Flac < Song
+end
