@@ -1,0 +1,2 @@
+class ProfileFree < User
+end

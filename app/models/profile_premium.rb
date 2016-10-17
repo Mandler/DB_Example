@@ -1,0 +1,2 @@
+class ProfilePremium < User
+end
